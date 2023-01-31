@@ -35,6 +35,9 @@
     const email = form.email.value;
     const password = form.password.value;
 
+    const emailError = document.querySelector('.email.error');
+    const passwordError = document.querySelector('.password.error');
+
     const res = await fetch('/signup', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -43,7 +46,14 @@
 
     const data = await res.json();
 
-    console.log(data);
+    if (data.errors) {
+      emailError.textContent = data.errors.email;
+      passwordError.textContent = data.errors.password;
+    }
+
+    if (data.user) {
+      location.assign('/');
+    }
   });
 </script>
 

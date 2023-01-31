@@ -4,6 +4,14 @@ const jwt = require('jsonwebtoken');
 const handleErrors = (err) => {
   const errors = { email: '', password: '' };
 
+  if (err.message === 'Incorrect email address') {
+    errors['email'] = err.message;
+  }
+
+  if (err.message === 'Wrong password') {
+    errors['password'] = err.message;
+  }
+
   if (err.message.includes('user validation failed')) {
     Object.values(err.errors).forEach(({ properties }) => {
       errors[properties.path] = properties.message;
@@ -36,7 +44,7 @@ module.exports.signup_post = async (req, res) => {
     res.status(200).send({ user: user._id });
   } catch (err) {
     const errors = handleErrors(err);
-    res.status(400).json(errors);
+    res.status(400).json({ errors });
   }
 };
 
@@ -45,7 +53,14 @@ module.exports.login_get = (req, res) => {
   res.render('login');
 };
 
-module.exports.login_post = (req, res) => {
-  res.cookie('token', 'magic_token');
-  res.send('Cookie has been set.');
+module.exports.login_post = async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const user = await User.login(email, password);
+    res.status(200).send({ user: user._id });
+  } catch (err) {
+    const errors = handleErrors(err);
+    res.status(400).json({ errors });
+  }
 };

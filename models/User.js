@@ -16,6 +16,16 @@ const userSchema = new mongoose.Schema({
   },
 });
 
+userSchema.statics.login = async (email, password) => {
+  const user = await User.findOne({ email });
+
+  if (!user) throw new Error('Incorrect email address');
+
+  if (user.password !== password) throw new Error('Wrong password');
+
+  return user;
+};
+
 const User = mongoose.model('user', userSchema);
 
 module.exports = User;
