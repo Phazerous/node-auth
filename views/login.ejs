@@ -2,7 +2,9 @@
 
 <h2>Log In Page</h2>
 
-<form>
+<form
+  action="login"
+  method="POST">
   <fieldset>
     <label for="email">Email</label>
     <input
@@ -23,20 +25,20 @@
     <div class="password error"></div>
   </fieldset>
 
-  <button>Log In</button>
+  <button type="submit">Log In</button>
 </form>
 
 <script>
-  const form = document.querySelector('form');
+  // const form = document.querySelector('form');
 
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
+  // form.addEventListener('submit', (e) => {
+  //   e.preventDefault();
 
-    const email = form.email.value;
-    const password = form.password.value;
+  //   const email = form.email.value;
+  //   const password = form.password.value;
 
-    console.log(email, password);
-  });
+  //   console.log(email, password);
+  // });
 </script>
 
 <%- include('partials/footer') %>

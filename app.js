@@ -3,6 +3,8 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 
+const cookieParser = require('cookie-parser');
+
 const authRoutes = require('./routes/authRoutes');
 
 const mongoose = require('mongoose');
@@ -23,4 +25,8 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(express.json());
 
+app.use(cookieParser());
 app.use(authRoutes);
+
+const s = [5, 4, 3];
+s.lastIndexOf;

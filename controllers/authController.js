@@ -17,6 +17,7 @@ const handleErrors = (err) => {
 };
 
 module.exports.signup_get = (req, res) => {
+  console.log('Fish');
   res.render('signup');
 };
 
@@ -33,9 +34,11 @@ module.exports.signup_post = async (req, res) => {
 };
 
 module.exports.login_get = (req, res) => {
+  console.log(req.cookies);
   res.render('login');
 };
 
 module.exports.login_post = (req, res) => {
-  res.send('New log in');
+  res.cookie('token', 'magic_token');
+  res.send('Cookie has been set.');
 };
