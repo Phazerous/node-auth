@@ -8,6 +8,7 @@ const cookieParser = require('cookie-parser');
 const authRoutes = require('./routes/authRoutes');
 
 const mongoose = require('mongoose');
+const { requireAuth } = require('./middleware/authMiddleware');
 
 const dbURI = `mongodb+srv://${process.env.db_username}:${process.env.db_password}@cluster0.rotclkt.mongodb.net/`;
 
@@ -24,9 +25,8 @@ mongoose
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(express.json());
-
 app.use(cookieParser());
+
 app.use(authRoutes);
 
-const s = [5, 4, 3];
-s.lastIndexOf;
+app.get('/home', requireAuth, (req, res) => res.render('home-page.ejs'));

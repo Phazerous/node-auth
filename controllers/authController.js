@@ -49,7 +49,6 @@ module.exports.signup_post = async (req, res) => {
 };
 
 module.exports.login_get = (req, res) => {
-  console.log(req.cookies);
   res.render('login');
 };
 
